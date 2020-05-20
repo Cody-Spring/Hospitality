@@ -507,10 +507,10 @@ namespace Hospitality
                 if (compGuest != null)
                 {
                     compGuest.ResetForGuest(lord);
-                    compGuest.entertain = mapComp.defaultEntertain;
-                    compGuest.makeFriends = mapComp.defaultMakeFriends;
-                    compGuest.GuestArea = mapComp.defaultAreaRestriction;
-                    compGuest.ShoppingArea = mapComp.defaultAreaShopping;
+                    compGuest.SetEntertain(mapComp.defaultEntertain);
+                    compGuest.SetMakeFriends(mapComp.defaultMakeFriends);
+                    compGuest.SetGuestArea(mapComp.defaultAreaRestriction);
+                    compGuest.SetShoppingArea(mapComp.defaultAreaShopping);
                 }
             });
 
@@ -565,7 +565,7 @@ namespace Hospitality
             if (!map.listerBuildings.AllBuildingsColonistOfClass<Building_GuestBed>().Any()) return false;
 
             // We have beds now!
-            mapComp.refuseGuestsUntilWeHaveBeds = false;
+            mapComp.SetRefuseGuestsUntilWeHaveBeds(false);
             return true;
         }
     }

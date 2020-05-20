@@ -22,6 +22,27 @@ namespace Hospitality
         public List<Lord> PresentLords { get; } = new List<Lord>();
         public IEnumerable<Pawn> PresentGuests => PresentLords.SelectMany(lord => lord.ownedPawns);
 
+        public void SetDefaultEntertain(bool setting)
+        {
+            defaultEntertain = setting;
+        }
+        public void SetDefaultMakeFriends(bool setting)
+        {
+            defaultMakeFriends = setting;
+        }
+        public void SetDefaultAreaRestriction(Area area)
+        {
+            defaultAreaRestriction = area;
+        }
+        public void SetDefaultAreaShopping(Area area)
+        {
+            defaultAreaShopping = area;
+        }
+        public void SetRefuseGuestsUntilWeHaveBeds(bool setting)
+        {
+            refuseGuestsUntilWeHaveBeds = setting;
+        }
+
         public override void ExposeData()
         {
             Scribe_Values.Look(ref defaultEntertain, "defaultEntertain");
@@ -32,7 +53,7 @@ namespace Hospitality
             Scribe_Values.Look(ref refuseGuestsUntilWeHaveBeds, "refuseGuestsUntilWeHaveBeds");
             Scribe_Values.Look(ref nextQueueInspection, "nextQueueInspection");
 
-            if (defaultAreaRestriction == null) defaultAreaRestriction = map.areaManager.Home;
+            if (defaultAreaRestriction == null) SetDefaultAreaRestriction(map.areaManager.Home);
         }
 
         [UsedImplicitly]
@@ -44,7 +65,7 @@ namespace Hospitality
             if (!forReal) return;
 
             map.components.Add(this);
-            defaultAreaRestriction = map.areaManager.Home;
+            SetDefaultAreaRestriction(map.areaManager.Home);
             
             RefreshGuestListTotal();
         }
@@ -120,7 +141,7 @@ namespace Hospitality
             if (map == null) return;
 
             var mapComp = map.GetMapComponent();
-            mapComp.refuseGuestsUntilWeHaveBeds = true;
+            mapComp.SetRefuseGuestsUntilWeHaveBeds(true);
             LessonAutoActivator.TeachOpportunity(ConceptDef.Named("GuestBeds"), null, OpportunityType.Important);
         }
     }

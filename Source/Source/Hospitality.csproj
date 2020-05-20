@@ -45,6 +45,9 @@
       <HintPath>..\..\..\..\..\..\workshop\content\294100\2009463077\v1.1\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="0MultiplayerAPI, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RimWorld.MultiplayerAPI.0.2.0\lib\net472\0MultiplayerAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -95,6 +98,7 @@
     <Compile Include="Alert_GuestNotEnoughBeds.cs" />
     <Compile Include="Alert_GuestThought.cs" />
     <Compile Include="BedStatsDrawer.cs" />
+    <Compile Include="MultiplayerCompatibility.cs" />
     <Compile Include="Gizmo_GuestBedStats.cs" />
     <Compile Include="Harmony\Pawn_TraderTracker_Patch.cs" />
     <Compile Include="Harmony\QuestNode_GetPawn_Patch.cs" />
@@ -215,7 +219,9 @@
     <Compile Include="ITab_Pawn_Guest.cs" />
     <Compile Include="Hospitality_SpecialInjector.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

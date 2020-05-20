@@ -96,8 +96,8 @@ namespace Hospitality
                 var rectMakeFriends = listingStandard.GetRect(Text.LineHeight);
                 CheckboxLabeled(listingStandard, "MakeFriends".Translate(), ref tryMakeFriends, rectMakeFriends, false, txtMakeFriendsTooltip);
 
-                comp.entertain = tryImprove;
-                comp.makeFriends = tryMakeFriends;
+                comp.SetEntertain(tryImprove);
+                comp.SetMakeFriends(tryMakeFriends);
 
                 listingStandard.Gap(50);
 
@@ -259,7 +259,7 @@ namespace Hospitality
                     continue;
                 }
 
-                compGuest.sentAway = true;
+                compGuest.SetSentAway(true);
             }
         }
 
@@ -272,12 +272,12 @@ namespace Hospitality
 
             if (pawn.GetComp<CompGuest>() != null)
             {
-                mapComp.defaultEntertain = pawn.GetComp<CompGuest>().entertain;
-                mapComp.defaultMakeFriends = pawn.GetComp<CompGuest>().makeFriends;
+                mapComp.SetDefaultEntertain(pawn.GetComp<CompGuest>().entertain);
+                mapComp.SetDefaultMakeFriends(pawn.GetComp<CompGuest>().makeFriends);
             }
             
-            mapComp.defaultAreaRestriction = pawn.GetGuestArea();
-            mapComp.defaultAreaShopping = pawn.GetShoppingArea();
+            mapComp.SetDefaultAreaRestriction(pawn.GetGuestArea());
+            mapComp.SetDefaultAreaShopping(pawn.GetShoppingArea());
 
             var guests = GuestUtility.GetAllGuests(map);
             foreach (var guest in guests)
@@ -285,10 +285,10 @@ namespace Hospitality
                 var comp = guest.GetComp<CompGuest>();
                 if (comp != null)
                 {
-                    comp.entertain = mapComp.defaultEntertain;
-                    comp.makeFriends = mapComp.defaultMakeFriends;
-                    comp.GuestArea = mapComp.defaultAreaRestriction;
-                    comp.ShoppingArea = mapComp.defaultAreaShopping;
+                    comp.SetEntertain(mapComp.defaultEntertain);
+                    comp.SetMakeFriends(mapComp.defaultMakeFriends);
+                    comp.SetGuestArea(mapComp.defaultAreaRestriction);
+                    comp.SetShoppingArea(mapComp.defaultAreaShopping);
                 }
             }
         }

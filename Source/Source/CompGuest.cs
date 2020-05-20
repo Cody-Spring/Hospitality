@@ -33,11 +33,37 @@ namespace Hospitality
         public Building_GuestBed bed;
         public int lastBedCheckTick;
 
+        //moving assignment of Fields to external methods for easy multiplayer compatibility
+        public void SetEntertain(bool setting)
+        {
+            entertain = setting;
+        }
+        public void SetMakeFriends(bool setting)
+        {
+            makeFriends = setting;
+        }
+        public void SetArrived(bool setting)
+        {
+            arrived = setting;
+        }
+        public void SetSentAway(bool setting)
+        {
+            sentAway = setting;
+        }
+        public void SetGuestArea(Area area)
+        {
+            guestArea_int = area;
+        }
+        public void SetShoppingArea(Area area)
+        {
+            shoppingArea_int = area;
+        }
+
         public void ResetForGuest(Lord lord)
         {
             boughtItems.Clear();
-            arrived = false;
-            sentAway = false;
+            SetArrived(false);
+            SetSentAway(false);
             failedCharms.Clear();
             this.lord = lord;
             Pawn.ownership.UnclaimBed();
@@ -53,10 +79,10 @@ namespace Hospitality
             get
             {
                 if (guestArea_int != null && guestArea_int.Map != Pawn.MapHeld) return null;
-                if (!Pawn.MapHeld.areaManager.AllAreas.Contains(guestArea_int)) guestArea_int = null; // Area might be removed by player
+                if (!Pawn.MapHeld.areaManager.AllAreas.Contains(guestArea_int)) SetGuestArea(null); // Area might be removed by player
                 return guestArea_int;
             }
-            set => guestArea_int = value;
+            set => SetGuestArea(value);//guestArea_int = value;
         }
 
         public Area ShoppingArea
@@ -121,13 +147,13 @@ namespace Hospitality
 
         public void Arrive()
         {
-            arrived = true;
+            SetArrived(true);
             lastBedCheckTick = GenTicks.TicksGame; // Don't check right away
         }
 
         public void Leave(bool clearLord)
         {
-            arrived = false;
+            SetArrived(false);
             Pawn.ownership.UnclaimBed();
             if(clearLord) lord = null;
         }
